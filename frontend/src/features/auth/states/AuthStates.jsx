@@ -39,7 +39,6 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(refreshThunk.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.accessToken = action.payload.data.accessToken;
       })
       .addCase(refreshThunk.rejected, (state, action) => {

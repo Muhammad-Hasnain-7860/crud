@@ -4,6 +4,7 @@ import { axiosInstance } from "./axiosInstance";
 export const UseApi = (store) => {
   axiosInstance.interceptors.request.use((config) => {
     const { accessToken } = store.getState().authSlice;
+    console.log(accessToken)
     config.headers.Authorization = accessToken;
     return config;
   });

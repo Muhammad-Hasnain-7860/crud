@@ -40,11 +40,12 @@ export const register = async (req, res) => {
   });
 
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
 
   res.status(201).json({
     message: "user registered successFully",
@@ -89,11 +90,12 @@ export const login = async (req, res) => {
   });
 
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
 
   res.status(200).json({
     message: "user login successFully",
@@ -139,11 +141,12 @@ export const refresh = async (req, res) => {
     });
 
     res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
 
     return res.status(200).json({
       message: "token refresh successFully",
