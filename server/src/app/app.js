@@ -4,6 +4,11 @@ import cookieParser from 'cookie-parser'
 import productRouter from '../router/products.route.js'
 
 const app = express()
+app.use(cors({
+  origin: "https://curd-frontend-ten.vercel.app",
+  credentials: true
+}))
+
 app.use(express.json())
 app.use(cookieParser())
 app.use('/api/auth' , authRouter)

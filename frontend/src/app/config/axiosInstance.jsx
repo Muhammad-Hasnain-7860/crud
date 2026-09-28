@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const axiosInstance = axios.create({
-    baseURL : 'http://localhost:5173/api',
+    baseURL : 'baseURL: "https://crud-backend-roan.vercel.app"',
     withCredentials : true
 })
 
