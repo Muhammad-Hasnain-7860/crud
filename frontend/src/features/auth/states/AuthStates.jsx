@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getMeThunk,
   loginThunk,
+  logoutThunk,
   refreshThunk,
   registerApiThunk,
 } from "../apis/AuthApis.thunk";
@@ -52,7 +53,11 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
-      });
+      })
+      .addCase(logoutThunk.fulfilled , (state , action)=>{
+        state.user = null 
+        state.accessToken = null
+      })
   },
 });
 

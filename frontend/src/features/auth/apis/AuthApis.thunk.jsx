@@ -39,3 +39,14 @@ export const loginThunk = createAsyncThunk("login", async (data) => {
     return Promise.reject(error);
   }
 });
+
+export const logoutThunk = createAsyncThunk('logout' , async () => {
+  try {
+    const response = axiosInstance.post('/auth/logout')
+    console.log(response)
+    return response 
+  } catch (error) {
+    console.log(error)
+      Promise.reject(error)    
+  }
+})

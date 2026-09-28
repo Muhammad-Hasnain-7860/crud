@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProductsThunk } from "../../apis/ProductApis.thunk";
 import { useNavigate } from "react-router";
+import { logoutThunk } from "../../../auth/apis/AuthApis.thunk";
 
 const ProductCard = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,10 @@ const ProductCard = () => {
   }, []);
 
   const navigate = useNavigate();
+
+  const handleLogout = ()=>{
+    dispatch(logoutThunk())
+  }
 
   return (
     <main className="min-h-screen bg-[#0b0b0b] px-4 py-5 text-white sm:px-6 lg:px-8">
@@ -65,64 +70,74 @@ const ProductCard = () => {
                 >
                   Update • Delete • Your Products
                 </button>
+
+                <button
+                  onClick={handleLogout}
+                  className="rounded-full border border-red-500/20 px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-red-400 transition hover:border-red-500/40 hover:bg-red-500/5 hover:text-red-300"
+                >
+                  Logout
+                </button>
               </>
             )}
           </div>
         </div>
 
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
-         {firstProduct && <article className="group relative overflow-hidden bg-[#181818] sm:col-span-2">
-            <img
-              src={firstProduct?.images[0]}
-              className="h-[460px] w-full object-cover transition duration-700 group-hover:scale-105 sm:h-[500px]"
-            />
+          {firstProduct && (
+            <article className="group relative overflow-hidden bg-[#181818] sm:col-span-2">
+              <img
+                src={firstProduct?.images[0]}
+                className="h-[460px] w-full object-cover transition duration-700 group-hover:scale-105 sm:h-[500px]"
+              />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
 
-            <div className="absolute left-6 right-6 top-6 flex items-start justify-between">
-              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.18em] text-black">
-                New
-              </span>
-
-              <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/20 text-sm backdrop-blur-xl transition hover:bg-white hover:text-black">
-                ↗
-              </button>
-            </div>
-
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="mb-2 text-[9px] uppercase tracking-[0.25em] text-white/50">
-                {firstProduct?.title}
-              </p>
-
-              <div className="flex items-end justify-between gap-4">
-                <h2 className="max-w-sm text-2xl font-medium tracking-[-0.05em] sm:text-3xl">
-                  {firstProduct?.description?.slice(0, 20)}...
-                </h2>
-
-                <span className="text-sm font-medium">
-                  {firstProduct?.sizes[0]?.price?.currency} :{" "}
-                  {firstProduct?.sizes[0]?.price?.amount}
+              <div className="absolute left-6 right-6 top-6 flex items-start justify-between">
+                <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.18em] text-black">
+                  New
                 </span>
+
+                <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/20 text-sm backdrop-blur-xl transition hover:bg-white hover:text-black">
+                  ↗
+                </button>
               </div>
 
-              <button onClick={()=>navigate(`/product/${firstProduct._id}`)} className="mt-5 w-full border border-white/20 bg-white py-3.5 text-xs font-semibold text-black transition hover:bg-transparent hover:text-white">
-                View Product
-              </button>
-            </div>
-          </article>} 
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="mb-2 text-[9px] uppercase tracking-[0.25em] text-white/50">
+                  {firstProduct?.title}
+                </p>
 
-        
+                <div className="flex items-end justify-between gap-4">
+                  <h2 className="max-w-sm text-2xl font-medium tracking-[-0.05em] sm:text-3xl">
+                    {firstProduct?.description?.slice(0, 20)}...
+                  </h2>
+
+                  <span className="text-sm font-medium">
+                    {firstProduct?.sizes[0]?.price?.currency} :{" "}
+                    {firstProduct?.sizes[0]?.price?.amount}
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => navigate(`/product/${firstProduct._id}`)}
+                  className="mt-5 w-full border border-white/20 bg-white py-3.5 text-xs font-semibold text-black transition hover:bg-transparent hover:text-white"
+                >
+                  View Product
+                </button>
+              </div>
+            </article>
+          )}
+
           {allProducts
             .filter(() => {
               return allProducts.length >= 6;
             })
-            .map((product , index) => {
+            .map((product, index) => {
               return (
                 <article className="group relative overflow-hidden bg-[#d9d7d1]">
                   <div className="absolute left-5 top-5 z-10">
                     <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-black/50">
-                        {index < 9 ? `0${index + 1}` : index + 1}
-
+                      {index < 9 ? `0${index + 1}` : index + 1}
                     </span>
                   </div>
 
@@ -144,13 +159,15 @@ const ProductCard = () => {
                     </div>
 
                     <span className="text-sm">
-                      {product?.currency}{' '}
-                      {product?.sizes[0]?.price} 
+                      {product?.currency} {product?.sizes[0]?.price}
                     </span>
                   </div>
 
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 backdrop-blur-[2px] transition-all duration-300 group-hover:opacity-100">
-                    <button onClick={()=>navigate(`/product/${product._id}`)} className="translate-y-3 border border-white/30 bg-white px-8 py-3 text-xs font-semibold text-black transition-all duration-300 group-hover:translate-y-0 hover:bg-transparent hover:text-white">
+                    <button
+                      onClick={() => navigate(`/product/${product._id}`)}
+                      className="translate-y-3 border border-white/30 bg-white px-8 py-3 text-xs font-semibold text-black transition-all duration-300 group-hover:translate-y-0 hover:bg-transparent hover:text-white"
+                    >
                       View Product
                     </button>
                   </div>
