@@ -47,6 +47,6 @@ export const logoutThunk = createAsyncThunk('logout' , async () => {
     return response 
   } catch (error) {
     console.log(error)
-      Promise.reject(error)    
+     return Promise.reject(error)    
   }
 })
