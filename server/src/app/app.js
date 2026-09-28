@@ -2,6 +2,7 @@ import express from 'express'
 import authRouter from '../router/auth.routes.js'
 import cookieParser from 'cookie-parser'
 import productRouter from '../router/products.route.js'
+import cors from "cors";
 
 const app = express()
 app.use(cors({
