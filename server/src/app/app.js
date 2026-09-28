@@ -7,7 +7,7 @@ const app = express()
 app.use(cors({
   origin: "https://curd-frontend-ten.vercel.app",
   credentials: true
-}))
+}));
 
 app.use(express.json())
 app.use(cookieParser())
