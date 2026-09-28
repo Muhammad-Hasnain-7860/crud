@@ -113,8 +113,8 @@ const ProductCard = () => {
                   </h2>
 
                   <span className="text-sm font-medium">
-                    {firstProduct?.sizes[0]?.price?.currency} :{" "}
-                    {firstProduct?.sizes[0]?.price?.amount}
+                    {firstProduct?.currency} : {" "}
+                    {firstProduct?.sizes[0]?.price}
                   </span>
                 </div>
 

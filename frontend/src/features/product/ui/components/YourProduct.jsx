@@ -116,7 +116,7 @@ const YourProduct = () => {
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="flex-1 border border-white/20 bg-white/[0.03] px-3 py-2.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/70 transition hover:border-white/40 hover:bg-white/[0.07] hover:text-white">
+                    <button onClick={()=>navigate(`/product/${p._id}`)} className="flex-1 border border-white/20 bg-white/[0.03] px-3 py-2.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/70 transition hover:border-white/40 hover:bg-white/[0.07] hover:text-white">
                       View
                     </button>
 
